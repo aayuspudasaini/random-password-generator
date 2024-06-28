@@ -25,24 +25,28 @@ export function RandomPasswordGenerator({ length, charSymbol }: iProps) {
 
     let password = "";
 
+    let charSet = ""
+
     if (charSymbol?.upperCase) {
-        password += getRandomData(upperCaseSet)
+        charSet += upperCaseSet
     }
 
     if (charSymbol?.lowerCase) {
-        password += getRandomData(lowerCaseSet)
+        charSet += lowerCaseSet
     }
 
     if (charSymbol?.number) {
-        password += getRandomData(numberSet)
+        charSet += numberSet
     }
 
     if (charSymbol?.specialCharacter) {
-        password += getRandomData(specialCharacterSet)
+        charSet += specialCharacterSet
     }
 
-    if (password.length < length) {
-        return 20 * length
+    for (let i = 1; i <= length; i++) {
+        password += getRandomData(charSet)
     }
+
+    return password
 
 }

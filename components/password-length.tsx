@@ -13,7 +13,7 @@ export function PasswordLength({ passwordLength, setPasswordLength }: iProps) {
   return (
     <div className="flex flex-col md:flex-row items-center justify-between md:space-x-8">
       <h4 className="text-base md:text-lg font-medium text-accent-foreground  text-start text-nowrap">
-        Password Length: <span>{passwordLength}</span>
+        Password Length: <span className="font-semibold">{passwordLength}</span>
       </h4>
       <div className="flex md:space-x-8 space-x-4">
         <Button

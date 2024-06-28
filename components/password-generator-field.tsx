@@ -2,43 +2,59 @@
 import { RotateCcw } from "lucide-react";
 import { CheckboxField } from "./checkbox-field";
 import { Button } from "./ui/button";
-import password from "@/public/images/password.png";
+import logo from "@/public/images/password.png";
 import { Input } from "./ui/input";
 import { PasswordLength } from "./password-length";
 import Image from "next/image";
 import * as React from "react";
 import { PasswordCharacter } from "@/constants/password-character";
 import { RandomPasswordGenerator } from "@/lib/random-password-generator";
+import { cn } from "@/lib/utils";
 
 export default function PasswordGenerator() {
+  const [loading, setLoading] = React.useState<boolean>(false);
+
   const [passwordLength, setPasswordLength] = React.useState<number>(12);
 
+  const [password, setPassword] = React.useState<string>("");
+
   const [charSymbol, setcharSymbol] = React.useState({
-    upperCase: true,
+    upperCase: false,
     lowerCase: false,
     number: true,
     specialCharacter: false,
   });
 
-  console.log(
-    RandomPasswordGenerator({ length: passwordLength, charSymbol: charSymbol })
-  );
-
-  const handleChange = (e: any) => {
-    const password = e.target.value();
-  };
+  React.useEffect(() => {
+    const generatedPassword = RandomPasswordGenerator({
+      length: passwordLength,
+      charSymbol: charSymbol,
+    });
+    setPassword(generatedPassword);
+  }, [passwordLength, charSymbol]);
 
   const copyPassword = () => {
-    navigator.clipboard.writeText("ABCDEF");
+    navigator.clipboard.writeText(password);
     alert("Password Copied to clipboard.");
   };
+
+  const regeneratePassword = () => {
+    const result = RandomPasswordGenerator({
+      length: passwordLength,
+      charSymbol: charSymbol,
+    });
+    // setLoading(false);
+    setPassword(result);
+  };
+
   return (
     <div className="w-full flex flex-col lg:flex-row items-center justify-between space-y-4 md:space-y-0">
       <Image
-        src={password}
+        src={logo}
         alt="Password Generator"
         height={600}
         className="w-[70%] md:w-1/3 md:mx-auto"
+        priority
       />
       <div className="w-full md:w-1/2 flex flex-col items-start space-y-4 md:space-y-6">
         <div className="flex flex-row w-full space-x-4">
@@ -46,14 +62,18 @@ export default function PasswordGenerator() {
             <Input
               className="rounded-full shadow-inner h-12 focus-visible:ring-0 focus-visible:ring-offset-0 cursor-default"
               name="password_field"
-              value="sahdkhfaksfakf"
-              onChange={handleChange}
+              value={password}
+              readOnly
             />
             <button
               className="absolute right-3"
-              onClick={() => console.log("Regenerate")}
+              onClick={() => regeneratePassword()}
             >
-              <RotateCcw className="text-accent-foreground w-4 h-4" />
+              <RotateCcw
+                className={cn("text-accent-foreground w-4 h-4", {
+                  "animate-spin transition-all": loading,
+                })}
+              />
             </button>
           </div>
 
