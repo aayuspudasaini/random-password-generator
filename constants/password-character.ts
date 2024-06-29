@@ -1,16 +1,22 @@
-export const PasswordCharacter = [
+interface iProps {
+    title: 'upperCase' | 'lowerCase' | 'number' | 'specialCharacter';
+    symbol: string
+}
+
+
+export const PasswordCharacter: iProps[] = [
     {
-        id: "upperCase",
+        title: "upperCase",
         symbol: "ABC"
     },
     {
-        id: "lowerCase",
+        title: "lowerCase",
         symbol: "abc"
     }, {
-        id: "number",
+        title: "number",
         symbol: "123"
     }, {
-        id: "specialCharacter",
+        title: "specialCharacter",
         symbol: "#$&"
     }
 ]
