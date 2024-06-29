@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "h-full relative flex flex-col items-center md:justify-center gap-4 py-8 md:py-4 sm:px-0",
+          "h-full relative flex flex-col items-center justify-center gap-4 py-12 md:py-4 sm:px-0",
           urbanist.className
         )}
       >

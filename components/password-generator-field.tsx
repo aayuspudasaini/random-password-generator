@@ -33,8 +33,6 @@ export default function PasswordGenerator() {
     },
   });
 
-  console.log(form.watch());
-
   const generatePassword = React.useCallback(() => {
     const formValues = form.watch();
     const generatedPassword = RandomPasswordGenerator({
