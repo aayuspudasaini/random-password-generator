@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
+import ThemeSwitcher from "@/components/theme-switcher";
 
 const urbanist = Urbanist({
   subsets: ["latin"],
@@ -36,6 +37,7 @@ export default function RootLayout({
         >
           <div className="absolute top-4 right-4">
             <Toaster richColors closeButton position="top-right" />
+            <ThemeSwitcher />
           </div>
           {children}
         </ThemeProvider>

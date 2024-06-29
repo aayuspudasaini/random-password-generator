@@ -33,6 +33,8 @@ export default function PasswordGenerator() {
     },
   });
 
+  console.log(form.watch());
+
   const generatePassword = React.useCallback(() => {
     const formValues = form.watch();
     const generatedPassword = RandomPasswordGenerator({
@@ -88,7 +90,7 @@ export default function PasswordGenerator() {
             />
             <div
               className={cn(
-                "absolute right-10 text-sm px-2 text-secondary-foreground rounded-md",
+                "absolute right-10 text-sm px-2 text-muted dark:text-secondary-foreground rounded-md",
                 {
                   "bg-orange-600": strength.toLowerCase() === "strong",
                   "bg-green-600": strength.toLowerCase() === "medium",
@@ -112,7 +114,7 @@ export default function PasswordGenerator() {
           </div>
 
           <Button
-            className="rounded-full drop-shadow-md h-12 px-6 text-secondary-foreground"
+            className="rounded-full drop-shadow-md h-12 px-6 text-muted dark:text-secondary-foreground"
             onClick={() => copyPassword()}
           >
             Copy

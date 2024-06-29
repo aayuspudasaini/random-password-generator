@@ -33,6 +33,7 @@ export function PasswordLength({ passwordLength, setPasswordLength }: iProps) {
             value={[passwordLength]}
             defaultValue={[12]}
             max={50}
+            min={1}
             step={1}
             className="w-full cursor-pointer"
             onValueChange={(value) => setPasswordLength(value[0])}
