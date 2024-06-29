@@ -13,7 +13,7 @@ interface iProps {
 const upperCaseSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 const lowerCaseSet = "abcdefghijklmnopqrstuvwxyz"
 const numberSet = '0123456789'
-const specialCharacterSet = "!@#$%^&*()-_=+|[]{};:/?."
+const specialCharacterSet = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
 
 
 

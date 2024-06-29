@@ -13,13 +13,16 @@ import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import { Form, FormField } from "./ui/form";
 import { toast } from "sonner";
+import { passwordStrength } from "check-password-strength";
 
 export default function PasswordGenerator() {
   const [loading, setLoading] = React.useState<boolean>(false);
 
+  const [password, setPassword] = React.useState<string>("");
+
   const [passwordLength, setPasswordLength] = React.useState<number>(12);
 
-  const [password, setPassword] = React.useState<string>("");
+  const [strength, setStrength] = React.useState<string>("");
 
   const form = useForm({
     defaultValues: {
@@ -30,30 +33,27 @@ export default function PasswordGenerator() {
     },
   });
 
-  React.useEffect(() => {
-    const generatePassword = () => {
-      const generatedPassword = RandomPasswordGenerator({
-        length: passwordLength,
-        charSymbol: form.getValues(),
-      });
-      setPassword(generatedPassword);
-    };
-    generatePassword();
-
-    const subscription = form.watch((value) => {
-      const generatedPassword = RandomPasswordGenerator({
-        length: passwordLength,
-        charSymbol: {
-          lowerCase: value.lowerCase as boolean,
-          upperCase: value.upperCase as boolean,
-          number: value.number as boolean,
-          specialCharacter: value.specialCharacter as boolean,
-        },
-      });
-      setPassword(generatedPassword);
+  const generatePassword = React.useCallback(() => {
+    const formValues = form.watch();
+    const generatedPassword = RandomPasswordGenerator({
+      length: passwordLength,
+      charSymbol: {
+        lowerCase: formValues.lowerCase as boolean,
+        upperCase: formValues.upperCase as boolean,
+        number: formValues.number as boolean,
+        specialCharacter: formValues.specialCharacter as boolean,
+      },
     });
-    return () => subscription.unsubscribe();
+    const result = passwordStrength(generatedPassword).value;
+    setStrength(result);
+    setPassword(generatedPassword);
   }, [form, passwordLength]);
+
+  React.useEffect(() => {
+    generatePassword();
+    const subscription = form.watch(generatePassword);
+    return () => subscription.unsubscribe();
+  }, [form, generatePassword]);
 
   const copyPassword = () => {
     navigator.clipboard.writeText(password);
@@ -63,11 +63,7 @@ export default function PasswordGenerator() {
   const regeneratePassword = () => {
     setLoading(true);
     setTimeout(() => {
-      const result = RandomPasswordGenerator({
-        length: passwordLength,
-        charSymbol: form.getValues(),
-      });
-      setPassword(result);
+      generatePassword();
       setLoading(false);
     }, 600);
   };
@@ -90,6 +86,19 @@ export default function PasswordGenerator() {
               value={password}
               readOnly
             />
+            <div
+              className={cn(
+                "absolute right-10 text-sm px-2 text-muted rounded-md",
+                {
+                  "bg-orange-600": strength.toLowerCase() === "strong",
+                  "bg-green-600": strength.toLowerCase() === "medium",
+                  "bg-red-600/80": strength.toLowerCase() === "weak",
+                  "bg-red-600": strength.toLowerCase() === "too weak",
+                }
+              )}
+            >
+              {strength}
+            </div>
             <button
               className="absolute right-3"
               onClick={() => regeneratePassword()}

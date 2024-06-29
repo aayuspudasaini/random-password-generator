@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Urbanist } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/lib/theme-provider";
-import { ThemeSwitcher } from "@/lib/theme-switcher";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -28,18 +26,10 @@ export default function RootLayout({
           urbanist.className
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="absolute top-4 right-4">
-            <Toaster richColors closeButton position="top-right" />
-            {/* <ThemeSwitcher /> */}
-          </div>
-          {children}
-        </ThemeProvider>
+        <div className="absolute top-4 right-4">
+          <Toaster richColors closeButton position="top-right" />
+        </div>
+        {children}
       </body>
     </html>
   );

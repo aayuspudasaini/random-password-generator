@@ -31,10 +31,11 @@ export function PasswordLength({ passwordLength, setPasswordLength }: iProps) {
         <div className="flex items-center w-full">
           <Slider
             value={[passwordLength]}
-            defaultValue={[passwordLength]}
+            defaultValue={[12]}
             max={50}
             step={1}
-            className="w-full"
+            className="w-full cursor-pointer"
+            onValueChange={(value) => setPasswordLength(value[0])}
           />
         </div>
 
