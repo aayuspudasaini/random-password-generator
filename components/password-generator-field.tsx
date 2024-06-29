@@ -81,14 +81,14 @@ export default function PasswordGenerator() {
         <div className="flex flex-row w-full space-x-4">
           <div className="relative flex flex-row items-center w-full">
             <Input
-              className="rounded-full shadow-inner h-12 focus-visible:ring-0 focus-visible:ring-offset-0 cursor-default border border-input dark:border-secondary-foreground tracking-wider"
+              className="rounded-full shadow-inner h-12 focus-visible:ring-0 focus-visible:ring-offset-0 cursor-default border border-input dark:border-accent tracking-wider"
               name="password_field"
               value={password}
               readOnly
             />
             <div
               className={cn(
-                "absolute right-10 text-sm px-2 text-muted rounded-md",
+                "absolute right-10 text-sm px-2 text-secondary-foreground rounded-md",
                 {
                   "bg-orange-600": strength.toLowerCase() === "strong",
                   "bg-green-600": strength.toLowerCase() === "medium",
@@ -104,7 +104,7 @@ export default function PasswordGenerator() {
               onClick={() => regeneratePassword()}
             >
               <RotateCcw
-                className={cn("text-accent-foreground w-4 h-4", {
+                className={cn("text-secondary-foreground w-4 h-4", {
                   "animate-spin rotate-90": loading,
                 })}
               />
@@ -112,7 +112,7 @@ export default function PasswordGenerator() {
           </div>
 
           <Button
-            className="rounded-full drop-shadow-md h-12 px-6"
+            className="rounded-full drop-shadow-md h-12 px-6 text-secondary-foreground"
             onClick={() => copyPassword()}
           >
             Copy

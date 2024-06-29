@@ -19,7 +19,7 @@ export function PasswordLength({ passwordLength, setPasswordLength }: iProps) {
       <div className="flex items-center justify-between w-full md:space-x-8 space-x-4 ">
         <Button
           className={cn(
-            "rounded-full border border-input dark:border-muted-foreground h-12"
+            "rounded-full border border-input dark:border-accent h-12"
           )}
           variant="outline"
           disabled={passwordLength === 1}
@@ -41,7 +41,7 @@ export function PasswordLength({ passwordLength, setPasswordLength }: iProps) {
 
         <Button
           className={cn(
-            "rounded-full border border-input dark:border-muted-foreground h-12"
+            "rounded-full border border-input dark:border-accent h-12"
           )}
           variant="outline"
           disabled={passwordLength === 50}

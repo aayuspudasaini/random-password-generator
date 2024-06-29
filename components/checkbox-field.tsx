@@ -14,7 +14,7 @@ export function CheckboxField({ name, label, field }: iProps) {
     <FormItem className="flex flex-row items-center space-y-0 space-x-2.5 p-1 rounded-md">
       <FormControl>
         <Checkbox
-          className="border border-input dark:border-secondary-foreground rounded-lg shadow-inner h-5 w-5"
+          className="border border-input dark:border-accent rounded-lg shadow-inner h-5 w-5"
           {...field}
           name={name}
           id={label}
